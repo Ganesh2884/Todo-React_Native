@@ -10,10 +10,20 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Login' >
-        {/* <Stack.Screen name="Login" component={Login}/> */}
-        <Stack.Screen name="TodoList" component={TodoList}/>
-        <Stack.Screen name="AddTodo" component={AddTodo}/>
+      <Stack.Navigator screenOptions={{headerOptions: false}}>
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="TodoList" component={TodoList} />
+        <Stack.Screen
+          screenOptions={{
+            navigationOptions: {
+              title: 'Addtodo',
+              headerLeft: null,
+              gestureEnabled: false,
+            },
+          }}
+          name="AddTodo"
+          component={AddTodo}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

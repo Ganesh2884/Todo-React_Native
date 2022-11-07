@@ -3,8 +3,7 @@ import {View, Text, StyleSheet, TouchableNativeFeedback} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import AddTodo from './AddTodo';
 
-
-export default function TodoList({navigation, props}) {
+export default function TodoList({navigation}, props) {
   const users = [
     {
       user: 'Ganesh',
@@ -36,12 +35,17 @@ export default function TodoList({navigation, props}) {
               <Text
                 style={styles.addTodobtn}
                 onPress={() => {
+                  console.log('gyhujikjy');
                   navigation.navigate('AddTodo');
                 }}>
                 +
               </Text>
             </View>
           </TouchableNativeFeedback>
+
+          <ScrollView>
+            <Text>This is first Task</Text>
+          </ScrollView>
         </View>
       </View>
       <View>{/* <AddTodo taskList={taskList}/> */}</View>
@@ -65,6 +69,7 @@ const styles = StyleSheet.create({
   addTodobtn: {
     color: 'blue',
     fontSize: 60,
+    marginLeft: 130,
   },
 
   listItems: {
