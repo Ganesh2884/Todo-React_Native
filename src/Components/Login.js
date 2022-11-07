@@ -10,12 +10,11 @@ import {
 } from "react-native";
 
 
-
- 
 export default function Login() {
   const [name,setName] = useState('');
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [signUp, setSignUp] = useState("");
 
   const correctCredentials ={
     Enteredemail:"pvgkumar2001@gmail.com",

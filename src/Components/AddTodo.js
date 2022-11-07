@@ -1,17 +1,18 @@
-import {Button} from '@rneui/base';
+
 import React, {useState} from 'react';
 import {View, StyleSheet, Dimensions} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
-// import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default function AddTodo({navigation}) {
   const [value, setValue] = useState('');
   // const [taskList, setTaskList] = useState([]);
   const [input, setInput] = useState('');
 
-  // useEffect(() => {
-  //   readData();
-  // }, []);
+
+  useEffect(() => {
+    readData();
+  }, []);
 
   // let STORAGE_KEY = '@todo_input';
 
@@ -34,11 +35,20 @@ export default function AddTodo({navigation}) {
   //     }
   //   };
 
-  const submitHandler = e => {
+  const submitHandler =async e => {
     console.log(e);
     // if(!input) return;
     // saveData(value);
     // props.taskList;
+    const data = await AsyncStorage.getItem('todos');
+    const todos = JSON.parse(data);
+    todos.push({
+      title: title,
+    });
+    await AsyncStorage.setItem('todos', JSON.stringify(todos));
+    console.log(todos);
+    props.setAddTodo(false);
+
   };
 
   return (
@@ -55,10 +65,10 @@ export default function AddTodo({navigation}) {
         </View>
       </View>
       <View style={styles.btns}>
-        <Button onPress={() => navigation.goBack()}>Go back</Button>
-        <Button onPress={submitHandler} style={styles.savebtn}>
+        <Text onPress={() => navigation.goBack()}>Go back</Text>
+        <Text onPress={submitHandler} style={styles.savebtn}>
           Save
-        </Button>
+        </Text>
       </View>
     </View>
   );

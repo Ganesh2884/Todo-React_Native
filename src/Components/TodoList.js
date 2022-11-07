@@ -2,6 +2,8 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableNativeFeedback} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import AddTodo from './AddTodo';
+
+
 export default function TodoList({navigation, props}) {
   const users = [
     {
