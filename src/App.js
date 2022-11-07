@@ -14,14 +14,10 @@ export default function App() {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="TodoList" component={TodoList} />
         <Stack.Screen
-          screenOptions={{
-            navigationOptions: {
-              title: 'Addtodo',
-              headerLeft: null,
-              gestureEnabled: false,
-            },
-          }}
           name="AddTodo"
+          options={() => ({
+            headerLeft: () => null,
+          })}
           component={AddTodo}
         />
       </Stack.Navigator>

@@ -16,11 +16,31 @@ export default function Login({navigation}) {
   const [signUp, setSignUp] = useState('');
 
   const correctCredentials = {
-    Enteredemail: 'pvgkumar2001@gmail.com',
-    Enteredpassword: 'ganesh123',
+    Enteredemail: 'g1',
+    Enteredpassword: '123',
   };
-
   const loginHandler = () => {
+    console.log(email, password);
+    fetch('http://10.0.2.2:8080/login', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `username=${email}&password=${password}`,
+    })
+      .then(response => {
+        console.log(response);
+        response.json();
+      })
+      .then(res => {
+        console.log(res);
+        navigation.navigate('TodoList');
+        AsyncStorage.setItem('todos', JSON.stringify(todos))
+          .then(json => console.log('success!'))
+          .catch(error => console.log('error!'));
+      })
+      .catch(error => console.log('fetchToken error: ', error));
     const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (!email || email.length == '') {
       alert('Email cannot be empty');
@@ -37,9 +57,9 @@ export default function Login({navigation}) {
       correctCredentials.Enteredpassword == password
     ) {
       alert('Correct Credentials good to go');
+      navigation.navigate('TodoList');
     }
-    // navigation.navigate('TodoList')
-    navigation.navigate('TodoList');
+
     setSignUp(false);
     clearInput();
   };
