@@ -11,7 +11,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerOptions: false}}>
-        <Stack.Screen name="Login" component={Login} />
+        {/* <Stack.Screen name="Login" component={Login} /> */}
         <Stack.Screen name="TodoList" component={TodoList} />
         <Stack.Screen
           name="AddTodo"

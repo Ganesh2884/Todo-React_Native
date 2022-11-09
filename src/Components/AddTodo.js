@@ -1,32 +1,91 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
 // import AsyncStorage from '@react-native-community/async-storage';r
 import {SafeAreaView} from 'react-native-safe-area-context';
 import DatePicker from 'react-native-date-picker';
+import Realm from 'realm';
+import {useIsFocused} from '@react-navigation/native';
 
 export default function AddTodo({navigation}) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState(new Date());
-  const [newTodoItem, setNewTodoItem] = useState('');
 
-  console.log(title, description, date);
-  const submitTodoHandler = e => {
-    console.log(e);
-    console.log('title', title, description, 'description', 'date', date);
-    // let task1;
-    // realm.write(() => {
-    //   task1 = realm.create('Task', {
-    //     _id: 1,
-    //     name: title,
-    //     description: description,
-    //     date: date.format('YYYY-MM-DD'),
-    //   });
-    //   console.log(`created two tasks: ${task1.name}`);
-    // });
+  const [realmStorage, setRealmStorage] = React.useState(null);
+  const [tasks, setTasks] = React.useState([]);
+  const TaskSchema = {
+    name: 'Task1',
+    properties: {
+      _id: 'int',
+      title: 'string',
+      description: 'string?',
+      date: 'date',
+    },
+    primaryKey: '_id',
   };
 
+  const idGenerator = async realmId => {
+    const realm = await Realm.open({
+      path: 'myrealm',
+      schema: [TaskSchema],
+    });
+    let id = realm.objects('Task1').max('_id');
+    console.log(id);
+    if (!id) id = 0;
+    return id + 1;
+  };
+
+  async function writeData(data) {
+    const realm = await Realm.open({
+      path: 'myrealm',
+      schema: [TaskSchema],
+    });
+    try {
+      data._id = idGenerator(realm);
+      realm.write(() => {
+        realm.deleteAll();
+        todo = realm.create('Task1', data);
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    async () => {
+      // initialize realm...
+      const realm = await Realm.open({
+        path: 'myrealm',
+        schema: [TaskSchema],
+      });
+
+      const data = realm.objects('Task1');
+      return data;
+    };
+  });
+
+  const submitTodoHandler = async e => {
+    const realm = await Realm.open({
+      path: 'myrealm',
+      schema: [TaskSchema],
+    });
+    realm.write(() => {
+      task1 = realm.create('Task1', {
+        _id: Date.now(),
+        title,
+        description: description,
+        date,
+      });
+    });
+    console.log(title, description, date);
+    setTitle('');
+    setDescription('');
+
+    // useIsFocused()
+    // setText('');
+    // setStatus('');
+  };
   return (
     <SafeAreaView>
       <View>
