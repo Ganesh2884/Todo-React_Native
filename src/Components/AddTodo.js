@@ -1,22 +1,30 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, Dimensions} from 'react-native';
-import {ScrollView, TextInput} from 'react-native-gesture-handler';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet} from 'react-native';
+import {TextInput} from 'react-native-gesture-handler';
 // import AsyncStorage from '@react-native-community/async-storage';r
 import {SafeAreaView} from 'react-native-safe-area-context';
+import DatePicker from 'react-native-date-picker';
 
 export default function AddTodo({navigation}) {
-  const [todos, setTodos] = useState('');
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [date, setDate] = useState(new Date());
   const [newTodoItem, setNewTodoItem] = useState('');
 
-  const submitTodoHandler = async e => {
-    let task1;
-    realm.write(() => {
-      task1 = realm.create('Task', {
-        _id: 1,
-        name: todos,
-      });
-      console.log(`created two tasks: ${task1.name}`);
-    });
+  console.log(title, description, date);
+  const submitTodoHandler = e => {
+    console.log(e);
+    console.log('title', title, description, 'description', 'date', date);
+    // let task1;
+    // realm.write(() => {
+    //   task1 = realm.create('Task', {
+    //     _id: 1,
+    //     name: title,
+    //     description: description,
+    //     date: date.format('YYYY-MM-DD'),
+    //   });
+    //   console.log(`created two tasks: ${task1.name}`);
+    // });
   };
 
   return (
@@ -24,11 +32,26 @@ export default function AddTodo({navigation}) {
       <View>
         <TextInput
           style={styles.input}
-          placeholder="Add an item!"
-          onChangeText={newText => {
-            setTodos(newText);
+          placeholder="Add title!"
+          onChangeText={e => {
+            setTitle(e);
           }}
-          value={todos}
+          value={title}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Add Description!"
+          onChangeText={e => {
+            setDescription(e);
+          }}
+          value={description}
+        />
+        <DatePicker
+          style={styles.date}
+          date={date}
+          textColor={'blue'}
+          backgroundColor={'none'}
+          onChangeText={e => setDate(e)}
         />
       </View>
 
@@ -36,7 +59,7 @@ export default function AddTodo({navigation}) {
         <Text onPress={() => navigation.goBack()} style={styles.savebtn}>
           Go back
         </Text>
-        <Text onPress={submitTodoHandler} style={styles.savebtn}>
+        <Text onPress={e => submitTodoHandler(e)} style={styles.savebtn}>
           Save
         </Text>
       </View>
@@ -63,7 +86,6 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 60,
     marginTop: 50,
-    backgroundColor: 'blue',
   },
   card: {
     backgroundColor: '#fff',
@@ -79,5 +101,12 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     fontSize: 24,
     marginLeft: 20,
+  },
+  date: {
+    height: 100,
+    marginTop: 30,
+    width: 290,
+    alignItems: 'center',
+    marginLeft: 40,
   },
 });

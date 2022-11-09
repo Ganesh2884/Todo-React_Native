@@ -61,6 +61,15 @@ export default function TodoList({navigation}, props) {
             </ScrollView>
           </View>
 
+          <View style={styles.listView}>
+            <View>
+              <ScrollView>
+                <Text>TodoList</Text>
+                <Text>In Progress</Text>
+                <Text>Done</Text>
+              </ScrollView>
+            </View>
+          </View>
           {/* <View>
             <View style={styles.tododoingdoneView}>
               <Text style={[styles.tododoingdoneViewtext]}>ToDo</Text>
@@ -130,4 +139,9 @@ const styles = StyleSheet.create({
   //   fontSize: 20,
   //   marginHorizontal: 20,
   // },
+  listView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+  },
 });
