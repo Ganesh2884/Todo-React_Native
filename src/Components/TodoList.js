@@ -16,16 +16,16 @@ const TaskSchema = {
   primaryKey: '_id',
 };
 
-const idGenerator = async realmId => {
-  const realm = await Realm.open({
-    path: 'myrealm',
-    schema: [TaskSchema],
-  });
-  let id = realm.objects('Task1').max('_id');
-  console.log(id, 'fvgbhnj');
-  if (!id) id = 0;
-  return id + 1;
-};
+// const idGenerator = async realmId => {
+//   const realm = await Realm.open({
+//     path: 'myrealm',
+//     schema: [TaskSchema],
+//   });
+//   let id = realm.objects('Task1').max('_id');
+//   console.log(id, 'fvgbhnj');
+//   if (!id) id = 0;
+//   return id + 1;
+// };
 
 async function writeData(data) {
   let realm = await Realm.open({

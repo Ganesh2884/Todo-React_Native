@@ -5,23 +5,27 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import TodoList from './Components/TodoList';
 import AddTodo from './Components/AddTodo';
+import Practice from './Components/Practice';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerOptions: false}}>
-        {/* <Stack.Screen name="Login" component={Login} /> */}
-        <Stack.Screen name="TodoList" component={TodoList} />
-        <Stack.Screen
-          name="AddTodo"
-          options={() => ({
-            headerLeft: () => null,
-          })}
-          component={AddTodo}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    // <NavigationContainer>
+    //   <Stack.Navigator screenOptions={{headerOptions: false}}>
+    //     {/* <Stack.Screen name="Login" component={Login} /> */}
+    //     <Stack.Screen name="TodoList" component={TodoList} />
+    //     <Stack.Screen
+    //       name="AddTodo"
+    //       options={() => ({
+    //         headerLeft: () => null,
+    //       })}
+    //       component={AddTodo}
+    //     />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
+    <View>
+      <Practice />
+    </View>
   );
 }
 
